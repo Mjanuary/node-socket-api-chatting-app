@@ -4,16 +4,16 @@ const e = selector => document.querySelector(selector);
 
 
 
-let socket = io();
-socket.on('connect', function () {
-    console.log('Connected to the server');
+// let socket = io();
+// socket.on('connect', function () {
+//     console.log('Connected to the server');
 
 
-    // socket.emit('createMessage', {
-    //     from: "WDJ",
-    //     text: "whats going on!"
-    // })
-});
+//     // socket.emit('createMessage', {
+//     //     from: "WDJ",
+//     //     text: "whats going on!"
+//     // })
+// });
 
 
 
@@ -89,6 +89,24 @@ e('#switch-login').addEventListener('click', () => {
 });
 
 
+
+const findDB = (key,value, success) => {
+    let data = window.DB;
+    let found = false;
+    for (const i in data) {
+        let newOBJ = data[i];
+        if (data[i][key] == value) {
+            found = true;
+            success(true);
+            break;
+        }
+
+    }
+    if (!found) {
+        success(false);
+    }
+
+}
 
 
 /////////////////////////////////////// REGISTER // 
@@ -221,14 +239,39 @@ e('#registerButton').addEventListener('click', () => {
             names: names.value,
             country: country.value
         }
+
+        console.log('searching...');
         
-        console.log(credentials);
-        
-        socket.emit('register', credentials, function(res) {
-            console.log(res);
+        findDB('email', credentials.email, (res) => {
+            if (res != true) {
+                findDB('username', credentials.username, (res2) => {
+                    if (res2 != true) {
+                        
+                        // console.log('everything is fine');
+                        axios.post('https://african-chat-app.firebaseio.com/users.json', credentials)
+                        .then(function (response) {
+                            // console.log(response);
+                            e('#login-form-containner').style.display = 'block';
+                            e('#register-form-containner').style.display = 'none';
+                            alerts('Account Created Successfully<br>Now you can login','login','success zoomIn')
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });                        
+
+                    } else {
+                        username_label.innerHTML = `<u>${credentials.username}</u> is already in use by another user<br> try another username.`;
+                        username.style.borderColor = 'red';
+                        cleanning();
+                    }
+                });
+            } else {
+                email.style.borderColor = 'red';
+                email_label.innerHTML = `<u>${credentials.email}</u> is already in use by another user<br> try another email.`;
+                cleanning();
+            }
         });
-
-
+        
     }
 });
 
@@ -252,15 +295,65 @@ e('#loginButton').addEventListener('click', () => {
         password.style.borderColor = 'red';
     } else {
         // start the lofin process
-        let credentials = {
+        let crd = {
             email: email.value,
             password: password.value
         }
         
-        console.log(credentials);
-        
+   
+        let data = window.DB;
+        let found = false;
+        for (const i in data) {
+            let newOBJ = data[i];
+            if (data[i].password == crd.password && data[i].email == crd.email) {
+                found = true;
 
+                sessionStorage.setItem("uid", i);
+                e(".body-body").classList.add('body-success');
+
+                setTimeout(() => {
+                    window.location.href = '/chat.html';
+                }, 1000);
+                break;
+            }
+
+        }
+        if (!found) {
+            alerts('incorect username or password!');
+        }
 
 
     }
 });
+
+
+
+function loadData() {
+    axios.get('https://african-chat-app.firebaseio.com/users.json')
+    .then((response) => {
+        // handle success
+        window.DB = response.data;
+        e(".body-body").classList.remove('body-success');
+    })
+    .catch(function (error) {
+        
+    })
+    .finally(function () {
+
+    });     
+}
+
+
+loadData();
+window.onload = (event) => {
+    if (sessionStorage.getItem("uid") !== '') {
+        window.location.href = '/chat.html';
+    }
+};
+
+
+
+
+
+
+
