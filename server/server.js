@@ -8,6 +8,8 @@ const {Users} = require('./utils/users');
 
 // import uuid
 const uuidv1 = require('uuid/v1');
+const axios = require('axios');
+
 
 let port = process.env.PORT || 3000;
 let publicPath = path.join(__dirname, '/../public');
