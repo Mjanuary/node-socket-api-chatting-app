@@ -1,5 +1,22 @@
 const e = selector => document.querySelector(selector);
 
+
+
+
+
+let socket = io();
+socket.on('connect', function () {
+    console.log('Connected to the server');
+
+
+    // socket.emit('createMessage', {
+    //     from: "WDJ",
+    //     text: "whats going on!"
+    // })
+});
+
+
+
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
@@ -207,7 +224,9 @@ e('#registerButton').addEventListener('click', () => {
         
         console.log(credentials);
         
-
+        socket.emit('register', credentials, function(res) {
+            console.log(res);
+        });
 
 
     }
