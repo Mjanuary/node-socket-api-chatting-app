@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>welcome to the chatt app</p>
+
+    <form id="message-form">
+        <input type="text" name="message" placeholder="Message">
+        <button id="submit-btn" type="submit">Submit</button>
+    </form>
+
+    <button type="submit" id="send-location">Send Location</button>
+    <div id="messages"></div>
+
+
+    <style>
+    #messages {
+        height: 200px;
+        background: #eee;
+        overflow: auto;
+        border: 3px solid red;
+    }
+    </style>
+
+    <script id="message-template" type="text/template">
+        <li class="message">
+            <div class="message__title">
+                <b>{{from}}</b>
+                <i>{{createdAt}}</i>
+            </div>
+            <div class="message__body">
+                {{text}}
+            </div>
+            <hr>
+        </li>
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/libs/moment.js"></script>
+    <script src="/js/libs/mustache.js"></script>
+</body>
+</html>

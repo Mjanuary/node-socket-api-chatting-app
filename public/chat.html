@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <title>Document</title>
+</head>
+<body style="overflow-x: hidden;">
+
+
+<div class="notification-popup">
+    <!-- <section class="nofitication-item fadeInDownBig animated">
+        <button class="close">x</button>
+        <b>Janvier muhaweni...</b>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
+    </section>
+
+
+    <section class="nofitication-item fadeInDownBig animated">
+            <button class="close">x</button>
+            <b>Janvier muhaweni...</b>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
+        </section>
+    
+        
+        <section class="nofitication-item fadeInDownBig animated">
+            <button class="close">x</button>
+            <b>Janvier muhaweni...</b>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
+        </section>
+             -->
+</div>
+
+    <div class="containner zoomIn animated" id="mainContentsContainner" >
+        <div id="appBar" class="hide_responsive slideInUp animated">
+            <section>
+                <button onclick="return SwitchPage('chat',);" class="chat-app-button" style="background-image: url('images/bar-chat.png');" title="Chat">Chat</button>
+                <button onclick="return SwitchPage('post');" class="post-app-button" style="background-image: url('images/chat-post.png');" title="Posts">Post</button>
+                <button onclick="return SwitchPage('closse');" class="close-app-button" style="background-image: url('images/bar-range.png');" title="Close Friends">Close</button>
+                <button onclick="return profileShow('me');" class="profile-app-button" style="background-image: url('images/bar-profile.png');" title="Profile">Profile</button>
+            </section>
+        </div>
+        
+        <!-- CONTENTS GOES HERE -->
+        <div class="main_contents">
+            
+            <!-- FRIENDS INVITE -->
+            <!-- FRIENDS INVITE -->
+        <section class="hide" id="router-container-find-friends">
+
+                <div id="inviteFriendsContainner" class="zoomIn animated">
+                    <section class="header-nav">
+                        <section class="back-button" onclick="return SwitchPage('chat');"></section>
+                        <h2>Friends Sugestion</h2>
+                    </section>
+                            <div class="search-section search-sugest">
+                                <input type="search" placeholder="Search ...">
+                            </div>
+                <section id="friendListInvite"></section>
+                <section>
+                <button id="friendsContinueButton" class="btn" style="margin: auto;
+                width: 76%;
+                margin-top: 22px;
+                margin-bottom: 18px;
+                background: green;">Accept All & Continue</button>
+                </section>
+            </div>
+        </section>
+
+        <!-- CHATTING -->
+        <!-- CHATTING -->
+        <section class="show" id="router-container-chatting">
+            <section class="section-containner">
+                <!-- CHATT LIST (HOME) -->
+                <div id="chattingContainner" class="show_side_resp flipInY faster animated">
+                    <section class="header-nav header-nav-chats-users">
+                        <section class="back-buttonx" style=" background: #fff; padding: 2px; width: 42px; height: 51px; margin-bottom: -16px; border-radius: 18px; margin-right: 8px;">
+                            <img src="images/LOGO.png" style="width: 100%;" alt="">
+                        </section>
+                        <h2><b style="margin-left: 36px;">Af</b> Chat  
+                            <button class="add-friend-button" onclick="return SwitchPage('sugestFriend');">Add Friend</button>
+                        </h2>
+
+                        <div class="search-section">
+                            <input type="search" placeholder="Search ...">
+                        </div>
+                    </section>
+                    <div id="friendsListContainner" class="push-top-search"></div>  
+                    
+          
+      
+                </div>
+
+
+
+                <!-- CHATT PROVATE MESSAGE (CHATTNG MESSAGE) -->
+                <div id="chattingContainnerConteinner" class="hide_main_resp flipInY faster animated">
+                    <section class="header-nav header-nav-chats-users-body">
+                        <section class="back-button" onclick="return Route('chatDetails-back');"></section>
+                        <section class="chatting-top-header"> 
+                            <img class="profile-image-chatting" src="images/profile/images (10).jpg" alt=""> 
+                            <h2 id="bar-name-chatting-h2" style="display: inline-block;">Janvier <section> <b>Active</b> <label>Typing...</label></section></h2>
+                        </section>
+                    </section>
+                    <div id="chattingContainnerMessages" class="scollable push-top-search">
+                        <div>Loading...</div>
+                    </div>
+
+                    <!-- chatting form -->
+                    <section id="messageInputContainner" class="slideInUp animated">
+                        <div class="conts-containner">
+                            <input  id="messageInputText" type="text" name="" id=""> 
+                            <button id="addImage">
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="
+                                    width: 21px;
+                                    height: auto;
+                                " width="38.515" height="38.513" viewBox="0 0 38.515 38.513"><path d="M10.114,38.514H28.4A10.125,10.125,0,0,0,38.515,28.4V10.115A10.125,10.125,0,0,0,28.4,0H10.114A10.125,10.125,0,0,0,0,10.115V28.4A10.125,10.125,0,0,0,10.114,38.514Zm-7.475-28.4a7.484,7.484,0,0,1,7.475-7.475H28.4a7.484,7.484,0,0,1,7.475,7.475V28.4A7.484,7.484,0,0,1,28.4,35.876H10.114A7.484,7.484,0,0,1,2.638,28.4Z" transform="translate(0 -0.001)" fill="#fff"/><path d="M11.445,32.447h17.16a5.6,5.6,0,0,0,5.716-5.461,10.032,10.032,0,0,0-2.585-7.322l-3.36-3.4a4.825,4.825,0,0,0-7.235-.113l-3.617,3.507a23.409,23.409,0,0,0-1.6,1.761,14.662,14.662,0,0,1-1.231,1.343l-.252-.193c-1.545-1.186-3.05-2.25-4.483-2.25a2.4,2.4,0,0,0-1.535.526A9.153,9.153,0,0,0,5.729,27.39C5.729,30.179,8.293,32.447,11.445,32.447Zm-1.44-9.488a9.445,9.445,0,0,1,2.827,1.7c.251.193.471.361.646.485a2.017,2.017,0,0,0,1.166.376c1.26,0,2.2-1.112,3.291-2.4.456-.538.928-1.095,1.419-1.567l3.617-3.507c1.221-1.171,2.326-1.153,3.524.065l3.36,3.4a7.527,7.527,0,0,1,1.825,5.471A2.961,2.961,0,0,1,28.6,29.809H11.445c-1.7,0-3.078-1.084-3.078-2.418A6.844,6.844,0,0,1,10.006,22.958Z" transform="translate(-0.691 -1.757)" fill="#fff"/><circle cx="3.16" cy="3.16" r="3.16" transform="translate(9.803 10.147)" fill="#fff"/></svg>
+                            </button>
+                            <button id="sendMessageButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="31.804" height="29.619" style="
+                                    width: 21px;
+                                    height: auto;
+                                " viewBox="0 0 31.804 29.619"><g transform="translate(-0.001 -1.093)"><path d="M1.286,12.465a2,2,0,0,0-.462,3.486l6.492,4.724L30.374,2.534,9.985,22.621l8.875,6.458a2.231,2.231,0,0,0,3.408-1.038L31.762,2.055a.717.717,0,0,0-.93-.914Z" fill="#fff"/><path d="M5.774,22.246l.055.3,1.26,6.889a1.556,1.556,0,0,0,2.373,1.029,42.7,42.7,0,0,0,3.985-2.722Z" fill="#fff"/></g></svg>
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <div id="imagepopContainner" class="hide">
+                        <h2>
+                            Choose Image 
+                            <label for="">Choose image from your gallery</label>
+                        </h2>
+                        <div id="imagesListContainner">
+                            <img src="images/profile/images (1).jpg" alt="">
+                            <img src="images/profile/images (1).jpg" alt="">
+                            <img src="images/profile/images (1).jpg" alt="">
+                            <img src="images/profile/images (1).jpg" alt="">
+                            <img src="images/profile/images (1).jpg" alt="">
+                            <img src="images/profile/images (1).jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>  
+
+        <!-- POSTS -->
+        <!-- POSTS -->
+        <section class="hide" id="router-container-posts">
+
+            <section>
+
+                <!-- CHATT PROVATE MESSAGE (CHATTNG MESSAGE) -->
+                <!-- CHATT PROVATE MESSAGE (CHATTNG MESSAGE) -->
+                    <div id="postsContainnerConteinner" class="show_side_resp flipInY faster animated">
+                        <section class="header-nav header-nav-posts-users">
+                            <section class="back-button" onclick="return SwitchPage('chat');"></section>
+                            <h2>Posts</h2>
+                        </section>
+                        <div id="postsContainner" class="push-top">
+                            <div>Loading...</div>
+                        </div>
+                    </div>
+                
+                <!-- POST DETAILS (RANGE) -->
+                <div id="postDetailsContainnerConteinner" class="hide_main_resp flipInY faster animated">
+                    <section class="header-nav header-nav-posts-users-body" style="background: #000;">
+                            <section class="back-button " onclick="return postBack();"></section>
+                            <section> 
+                                <img class="posts-image-chatting" src="images/profile/images (10).jpg" alt=""> 
+                                <h2 id="post-bar-name-chatting-h2" style="display: inline-block;">Loading...</h2>
+                            </section>
+                        </section>
+                        <div id="postDetailsContainner" class="push-top post-slideContainner">
+                                <div id="postStateShow"></div>
+                        <div id="postContentsPosted">Loading...</div>
+                    </div>
+                </div>   
+            </section>
+        </section>
+                
+        <!-- RANGE SEARCH (RANGE) -->
+        <!-- RANGE SEARCH (RANGE) -->
+        <section class="hide" id="router-container-range">
+            <div id="rangeContainnerConteinner" class="flipInY faster animated">
+                    <section class="header-nav header-range-location">
+                        <section class="back-button" onclick="return SwitchPage('chat');"></section>
+                        <h2>Nearest Friend's</h2>
+                    </section>
+                    <div id="rangeContainner" class="push-top">
+                        <div id="sspostContentsPosted">
+                            
+                            <img src="images/radar.png" alt="" style="    display: block;
+                            width: 85%;
+                            margin: auto;
+                            margin-top: 7vh;" class="pulse animated infinite">
+
+                            <p style="display: block;
+                            width: 71%;
+                            font-size: 20px;
+                            margin: auto;
+                            margin-top: 33px;
+                            text-align: center;">The nearest friend location will show your friends who are near you, so that you may meet
+                            <br>    
+                            <br>    
+                            <br>    
+                        </p>
+                        </div>
+                    </div>
+                </div>
+        </section>
+            
+                <!-- RANGE SEARCH (RANGE) -->
+        <section class="hide" id="router-container-profile">
+
+            <div id="profileContainnerConteinner" class="flipInY faster animated">
+                    <section class="header-nav header-nav-profile">
+                        <section class="back-button"  onclick="return SwitchPage('chat');"></section>
+                        <h2>Profile</h2>
+                    </section>
+                    <div id="profileContainner" class="push-top">
+                        <div class="user-profile-containner">
+                            
+                            <img src="images/profile/profile.png" alt="">
+
+                            <h3>Janvier</h3>
+                            <h4>Muhawenimana</h4>
+
+                            <label>Email</label>
+                            <h5>janviermuhawenimana@gmil.com</h5>
+
+                        </div>
+                    </div>
+            </div>
+            </section>
+
+         
+        </div>
+
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <!-- <br> -->
+    <script src="data/data.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

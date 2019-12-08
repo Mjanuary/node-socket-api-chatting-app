@@ -1,0 +1,319 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-image: url("../images/Group 14.png");
+  background-position: center;
+  background-attachment: fixed;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar:hover {
+  width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px grey;
+          box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #480202c2;
+  border-radius: 60px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a00000;
+  border-radius: 10px;
+}
+
+.register_section {
+  display: none;
+}
+
+#register .contents {
+  margin: auto;
+}
+
+#register .contents .splash-screen {
+  height: 100vh;
+  border-bottom: 0.5px solid #3a0202;
+}
+
+#register .contents .splash-screen img {
+  display: block;
+  margin: auto;
+  margin-top: 15vh;
+  margin-bottom: 12vh;
+}
+
+#register .contents .splash-screen h2 {
+  margin-bottom: 10vh;
+  text-align: center;
+  font-size: 42px;
+  font-weight: normal;
+  color: #3a0202;
+}
+
+#register .contents .splash-screen .scroll-caption {
+  text-align: center;
+  color: #3a0202;
+}
+
+.form-contents {
+  width: 80%;
+  margin: auto;
+}
+
+.form-contents h1 {
+  color: #ffffff;
+  color: #3a0202;
+  padding: 10px;
+  margin: 0;
+  font-size: 44px;
+  /* background: rebeccapurple; */
+  text-align: center;
+  text-transform: uppercase;
+  /* border: 4px solid #3a0202; */
+  margin-top: 16vh;
+  background: #f38d04;
+  -webkit-box-shadow: -1px -15px 0px 8px;
+          box-shadow: -1px -15px 0px 8px;
+  margin-bottom: 39px;
+}
+
+.form-contents .from-group {
+  margin-top: 17px;
+}
+
+.form-contents .from-group label {
+  display: block;
+  color: #3a0202;
+  font-weight: bold;
+}
+
+.form-contents p {
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #3a0202;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.login-section {
+  margin-top: 28vh !important;
+}
+
+.login-btn {
+  margin: auto;
+  display: block;
+  margin-top: 19px;
+  background: transparent;
+  border: none;
+  font-size: 17px;
+  font-weight: bold;
+  color: #4e0303;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 23px;
+  font-size: 18px;
+  padding: 11px;
+  background: #3a0202;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.containner-login-register {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 4fr 3fr;
+      grid-template-columns: 4fr 3fr;
+  height: 100vh;
+}
+
+.containner-login-register .image-section {
+  background: #3a0202;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  background-image: url(../../images/cover.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.containner-login-register .image-section .caption {
+  width: 47%;
+  max-width: 547px;
+  margin: auto;
+  padding: 0px 17px;
+  position: absolute;
+  bottom: 44px;
+  color: #fff;
+  left: 35px;
+  background: #000000d6;
+  padding: 32px 26px;
+  border: 2px solid #f38d04;
+}
+
+.containner-login-register .image-section .caption .logo-containner {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 59px 1fr;
+      grid-template-columns: 59px 1fr;
+}
+
+.containner-login-register .image-section .caption .logo-containner .logo {
+  width: 50px;
+}
+
+.containner-login-register .image-section .caption .logo-containner h3 {
+  font-size: 32px;
+  margin-top: 4px;
+}
+
+.containner-login-register .image-section .caption h4 {
+  border-top: 2px solid #f38d04;
+  margin-bottom: 9px;
+  margin-top: 10px;
+  padding-top: 8px;
+  font-size: 27px;
+  font-weight: normal;
+}
+
+.containner-login-register .image-section .caption h4 b {
+  display: block;
+}
+
+.containner-login-register .image-section .caption h2 {
+  font-size: 20px;
+  font-style: italic;
+  text-transform: lowercase;
+  font-weight: normal;
+  color: gold;
+  margin-bottom: 4px;
+}
+
+.alert-display {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.alert-display .alert {
+  background: #6f6f6f;
+  color: #fff;
+  padding: 8px;
+  border-radius: 7px;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 11px;
+}
+
+.alert-display .alert.danger {
+  background: red;
+}
+
+.alert-display .alert.success {
+  background: #00b507;
+}
+
+.alert-display .alert.warning {
+  background: #FFC107;
+  color: #000;
+}
+
+@media only screen and (max-width: 790px) {
+  .containner-login-register {
+    display: block !important;
+  }
+  .containner-login-register .image-section {
+    height: 36vh;
+  }
+  .containner-login-register .image-section .caption {
+    z-index: 111111111;
+    padding: 0;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    top: 0;
+    bottom: unset;
+    right: 0;
+    left: 0;
+    border: none;
+    background: transparent;
+  }
+  .containner-login-register .image-section .caption h4, .containner-login-register .image-section .caption h2, .containner-login-register .image-section .caption h6 {
+    display: none;
+  }
+  .containner-login-register .image-section .caption h3 {
+    text-shadow: 0px 0px 21px #3a0202;
+  }
+  .form-contents {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 15px;
+    margin-top: 0px;
+    padding-top: 0;
+    background: #fff;
+    width: 90%;
+    padding: 23px 7px;
+    margin: auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 0 !important;
+    -webkit-box-shadow: 0px 0px 30px 1px #43001f;
+            box-shadow: 0px 0px 30px 1px #43001f;
+    top: 13vh;
+    width: 90%;
+  }
+  .form-contents h1 {
+    margin: 0;
+    margin-top: 32px;
+    margin: auto;
+  }
+  .containner-login-register {
+    height: auto;
+  }
+  .from-group {
+    padding: 0px 21px;
+  }
+  .btn {
+    margin: 0px 21px;
+    display: block;
+    width: -webkit-fill-available;
+    margin-top: 27px;
+  }
+}
+/*# sourceMappingURL=register.css.map */
