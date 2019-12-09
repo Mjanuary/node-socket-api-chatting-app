@@ -1,5 +1,6 @@
 const e = selector => document.querySelector(selector);
 let date = new Date();
+
 const switchClass = (element,firstClass,secondClass,   close = false, duration = 100) => {
     element.classList.remove(firstClass); 
     element.style.opacity = 0;
@@ -13,78 +14,52 @@ const switchClass = (element,firstClass,secondClass,   close = false, duration =
     }, duration);
 }
 
-console.log(window.app);
-console.log(window.data);
-
 const profile = window.data.root.profile;
 
-// prompt checkRegistration
-const checkRegistration = () => {
-    console.log(window.app.state.isRegistered);
-    if (window.app.state.isRegistered == false) {        
-        // check if the user has logged in
-        if (profile.email == '') {
-            e('#register').style.display = 'block';
-            e('#mainContentsContainner').style.display = 'none';
+// // prompt checkRegistration
+// const checkRegistration = () => {
+//     console.log(window.app.state.isRegistered);
+//     if (window.app.state.isRegistered == false) {        
+//         // check if the user has logged in
+//         if (profile.email == '') {
+//             e('#register').style.display = 'block';
+//             e('#mainContentsContainner').style.display = 'none';
 
-        }
-    }
-}
-const validate = (element, rules) => {
-    // console.log(rules);
-    return true;    
-}
-
-// const register = () => {
-//     if (
-//         validate('#registerEmail','email') &&
-//         validate('#regidterFName','text') &&
-//         validate('#regidterLName','text') &&
-//         validate('#regidterPhone','number') &&
-//         validate('#regidterCountry','text')
-//     ) {
-//             profile.email = e('#registerEmail').value;
-//             profile.firstName = e('#regidterFName').value;
-//             profile.lastName = e('#regidterLName').value;
-//             profile.phone = e('#regidterPhone').value;
-//             profile.country = e('#regidterCountry').value;
-
-//             switchClass(e('#register'), 'fadeInRight', 'fadeOutLeft', true);
-//             // switchClass(e('#mainContentsContainner'), 'fade', 'fadeInRight');
-//             e('#mainContentsContainner').style.display = 'block';
-//             Route('sugestFriend');
-//             // e('#register').style.display = 'none';
-
-//             friendSugetion();
+//         }
 //     }
+// }
+// const validate = (element, rules) => {
+//     // console.log(rules);
+//     return true;    
 // }
 
 const friendSugetion = () => {
-    let html = '';
-    window.data.friends.map(friend => {
-        // console.log(friend);
-        html += `<div class="friend_item animated">
-        <section class="thumbnail" style="background-image: url('images/profile/${friend.profile.picture}');"></section>
+    e('#friendListInvite').innerHTML = '';
+    for (const i in window.USERS) {
+        let user = window.USERS[i];
+        let button = '';
+        if (i != window.UID) {
+            button = `<button onclick="return invite(this, '${i}');">Invite</button>`;
+        } else {
+            button = '';
+        }
+        e('#friendListInvite').innerHTML += `
+        <div class="friend_item animated">
+        <section class="thumbnail" style="background-image: url('images/profile/${user.picture}');"></section>
             <section>
-                <h4>${friend.profile.firstName}</h4>
-                <h3>${friend.profile.lastName}</h3>
+                <h4>${user.username}</h4>
+                <h3>${user.names}</h3>
             </section>
-            <button onclick="return invite(this);">Invite</button>
+            ${button}
         </div>`;
-    e('#friendListInvite').innerHTML = html;
-    })
+    }
+
 }
 
-// SHOW APP BAR
-// const appBar = state => {
-//     if (state == 'show') {
-//         e('#appBar').classList.add('show');
-//         e('#appBar').classList.remove('hide');
-//     } else {
-//         e('#appBar').classList.add('hide');
-//         e('#appBar').classList.remove('show');        
-//     }
-// }
+const searchSugestFriend = elem => {
+    console.log('it is comming in the next version');
+    
+}
 
 // SHOW APP BAR
 const chatList = state => {
@@ -126,7 +101,6 @@ const pageState = (page, type = 'show', responsive = false) => {
     }
 }
 
-
 const pageState_responsive = (page, type = 'show', option = true) => {
     let state_rem = ''; let state_add = '';
     if (option == true) {
@@ -150,8 +124,6 @@ const pageState_responsive = (page, type = 'show', option = true) => {
     e(page).classList.remove(state_rem);
     e(page).classList.add(state_add);
 }
-
-
 
 const SwitchPage = (page) => {
     // hide all the pages
@@ -181,8 +153,9 @@ const SwitchPage = (page) => {
             chattList();
             break;
         case 'sugestFriend':
+            friendSugetion();
             pageState('#router-container-find-friends', 'show');
-            pageState('#appBar', 'show', true);            
+            pageState('#appBar', 'show', true); 
             break;
         case 'post':
             pageState('#router-container-posts', 'show');
@@ -206,25 +179,10 @@ const SwitchPage = (page) => {
     }
 }
 
-
 const Route = page => {
     // hide app pages
-    // 
-    // pageState('#register','hide');
-    // pageState('#inviteFriendsContainner','hide');
-    // pageState('#chattingContainnerConteinner','hide');
-    // pageState('#chattingContainner','hide_responsive');
-    
-    // pageState('#postsContainnerConteinner','hide');
-    // pageState('#postDetailsContainnerConteinner','hide');
-    
-    // pageState('#rangeContainnerConteinner','hide');
-    // pageState('#profileContainnerConteinner','hide');
-    
-    // app bar
     pageState('#appBar','hide', true);
 
-    
     switch (page) {
         case 'chat':
             // pageState('#chattingContainner', 'show_responsive');
@@ -293,7 +251,7 @@ const postList = () => {
         if (postNumber >= 1) {
             window.postSlide.userPost.max = window.postSlide.userPost.max + 1; // users list
             html += `<div class=" friend_item animated openPostSlider" onclick="return openPostee(${x});">
-                <section class="thumbnail" style="background-image: url('images/profile/${friend.profile.picture}');"></section>
+                <section class="thumbnail" style="background-image: url('images/profile/${friend.profile}');"></section>
                 <section>
                 <h4>${friend.profile.firstName} </h4>
                 <h3>${friend.profile.lastName}</h3>
@@ -341,9 +299,6 @@ const openPost = x => {
     openSlide(posts)
     Route('postDetails');
 }
-
-// e('.openPostSlider').onclick = () => {window.postSlide.active = true; }
-// e('.stopPostAnimation').onclick = () => 
 
 const postBack = () => {
     Route('postDetails-back');
@@ -403,36 +358,40 @@ const openSlide = () => {
 // CHATT LIST
 const chattList = () => {
     let html = '';
-    for (var x in window.data.friends) {
-        const friend = window.data.friends[x];
-        // console.log(friend);
+    for (var x in window.USER.oFriends) {
+        const friend = window.USER.oFriends[x];
+
+        // friendsListContainner
         html += `
-        <div class="friend_item friend_item_chats animated" onclick="return openChatt(${x});">
-                <section class="thumbnail" style="background-image: url('images/profile/${friend.profile.picture}');">
+        <div class="friend_item friend_item_chats animated" id="${friend.friendKey}" onclick="return openChatt(this, '${friend.friendKey}', '${friend.groupId}');">
+                <section class="thumbnail" style="background-image: url('images/profile/${friend.profile}');">
                         <b class="active-icon active"></b>
                 </section>
                 <section>
-                    <h4>${friend.profile.firstName}</h4>
-                    <h3>${friend.profile.lastName}</h3>
+                    <h4>${friend.details.username}</h4>
+                    <h3>${friend.details.names}</h3>
                 </section>
-                <section class="new-chats">
+                <section class="new-chats" style="display:none;">
                     12
                 </section>
         </div>`;
         e('#friendsListContainner').innerHTML = html;
     }
 }
-
+// (this, ${friend.friendKey}, ${friend.groupId})
 //OPEN THE CHATT USERS
-const openChatt = user => {
-    let userSelected = window.data.friends[user];
-    window.data.selected = user;
+const openChatt = (el,friend, group) => {
+    let userSelected = window.USERS[friend];
+    window.SELECTED_UID = friend;
+    window.SELECTED_GROUP = group;
+
+    window.data.selected = friend;
     Route('chatDetails');
 
     let state = `<section> <b>Active</b> <label>Typing...</label></section>`;
     // headersinfo
-    e('.profile-image-chatting').src = 'images/profile/'+userSelected.profile.picture;
-    e('#bar-name-chatting-h2').innerHTML = userSelected.profile.firstName + state;
+    e('.profile-image-chatting').src = 'images/profile/'+userSelected.profile;
+    e('#bar-name-chatting-h2').innerHTML = userSelected.username + state;
 
     e('#chattingContainnerMessages').innerHTML = '';
     var objDiv = e('#chattingContainnerMessages');
@@ -468,44 +427,121 @@ const openChatt = user => {
 
 
 
-const chattBoot = (message) => {
-    setTimeout(() => {
-        message = message.toLowerCase();
-        let replly = '';
-        if (message == 'group list') {
-            replly = 'Group Menber: <br> <b>218004581</b> Janvier <br>  <b>218004581</b> Janvier <br> <b>218004581</b> Janvier <br>  <b>218004581</b> Janvier <br>';
-        } else if (message == 'thanks') {
-            replly = 'You are welcome.';
-        } else if (message == 'hello') {
-            replly = 'Hello how are you?.';
-        } else if (message == 'im fine' || message == 'fine' ) {
-            replly = 'Good!';
-        } else {
-            replly = 'Thank you for contacting Me! <br> i will reply you when i get back online!';
-        }
-
-
-        // sending message
-        if (replly !== '') { sendMessage(replly, 'friend'); }
-        
-    }, 3000);
-}
-
-
-
 
 // root.profile.email
-const invite = el => {
-    switchClass(el.parentElement,'x','zoomOut', true);
+const invite = (el, code) => {
+    // switchClass(el.parentElement,'x','zoomOut', true);
+    inviteFriendDB(code);
 }
 
-e('#sendMessageButton').onclick = () => {
-    const text = e('#messageInputText').value;
 
-    sendMessage(text, 'me');
-    e('#messageInputText').value = '';
-    chattBoot(text);
-}
+
+
+
+// e('#friendsContinueButton').onclick = () => Route('chat');
+// e('#registerButton').onclick = () => register();
+
+ 
+window.onload = (event) => {
+            switchClass(e('#mainContentsContainner'), 'fade', 'fadeInRight');
+            e('#mainContentsContainner').style.display = 'block';
+    // checkRegistration();
+    // friendSugetion();
+
+    e('#mainContentsContainner').style.display = 'block';
+            Route('sugestFriend');
+} 
+
+
+
+function toggleFullScreen() {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+  
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+  
+    if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    //   requestFullScreen.call(docEl);
+    }
+    else {
+      cancelFullScreen.call(doc);
+    }
+  }
+
+
+setTimeout(() => { 
+    toggleFullScreen();
+}, 5000);
+
+
+
+
+/////////////////////////////////////////////////////
+let socket = io();
+ 
+socket.on('connect', function () {
+    console.log('Connected to the server');
+
+    socket.emit('join', window.UID, function(err) {
+        if (err) {
+            alert(err);
+            window.location.href = '/';
+        } else {
+            console.log('there is no error');
+            
+        }
+    })
+
+
+    // socket.emit('createMessage', {
+    //     from: "WDJ",
+    //     text: "whats going on!"
+    // })
+});
+
+
+
+// load data
+window.onload = (event) => {
+    if (sessionStorage.getItem("uid") == '') {
+        window.location.href = '/';
+    } else {
+        window.UID = sessionStorage.getItem("uid");
+        loadMainData(data => {
+            // console.log('data: ', data);
+            findId(sessionStorage.getItem("uid"), user => {
+                window.USER = user;
+                generateFriendsList(user);
+                chattList();
+                console.log(window.USERS);
+                console.log('organized friends: ', window.USER.oFriends);
+                
+            });
+           
+
+            
+
+        });
+
+
+    
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const sendMessage = (msg, by) => {
     // insert the message in an object
@@ -539,38 +575,34 @@ const sendMessage = (msg, by) => {
     userChats.push(message); 
 }
 
-// e('#friendsContinueButton').onclick = () => Route('chat');
-// e('#registerButton').onclick = () => register();
-
- 
-window.onload = (event) => {
-            switchClass(e('#mainContentsContainner'), 'fade', 'fadeInRight');
-            e('#mainContentsContainner').style.display = 'block';
-    // checkRegistration();
-    // friendSugetion();
-
-    e('#mainContentsContainner').style.display = 'block';
-            Route('sugestFriend');
-} 
-
-
-
-function toggleFullScreen() {
-    var doc = window.document;
-    var docEl = doc.documentElement;
-  
-    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-  
-    if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-      requestFullScreen.call(docEl);
-    }
-    else {
-      cancelFullScreen.call(doc);
-    }
-  }
+const chattBoot = (message) => {
+    setTimeout(() => {
+        message = message.toLowerCase();
+        let replly = '';
+        if (message == 'group list') {
+            replly = 'Group Menber: <br> <b>218004581</b> Janvier <br>  <b>218004581</b> Janvier <br> <b>218004581</b> Janvier <br>  <b>218004581</b> Janvier <br>';
+        } else if (message == 'thanks') {
+            replly = 'You are welcome.';
+        } else if (message == 'hello') {
+            replly = 'Hello how are you?.';
+        } else if (message == 'im fine' || message == 'fine' ) {
+            replly = 'Good!';
+        } else {
+            replly = 'Thank you for contacting Me! <br> i will reply you when i get back online!';
+        }
 
 
-setTimeout(() => { 
-    toggleFullScreen();
-}, 5000);
+        // sending message
+        if (replly !== '') { sendMessage(replly, 'friend'); }
+        
+    }, 3000);
+}
+
+
+e('#sendMessageButton').onclick = () => {
+    const text = e('#messageInputText').value;
+
+    sendMessage(text, 'me');
+    e('#messageInputText').value = '';
+    // chattBoot(text);
+}

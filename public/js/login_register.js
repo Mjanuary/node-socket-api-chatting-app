@@ -105,7 +105,6 @@ const findDB = (key,value, success) => {
     if (!found) {
         success(false);
     }
-
 }
 
 
@@ -237,7 +236,8 @@ e('#registerButton').addEventListener('click', () => {
             phone: phone.value,
             username: username.value,
             names: names.value,
-            country: country.value
+            country: country.value,
+            friends: {}
         }
 
         console.log('searching...');
@@ -250,7 +250,6 @@ e('#registerButton').addEventListener('click', () => {
                         // console.log('everything is fine');
                         axios.post('https://african-chat-app.firebaseio.com/users.json', credentials)
                         .then(function (response) {
-                            // console.log(response);
                             e('#login-form-containner').style.display = 'block';
                             e('#register-form-containner').style.display = 'none';
                             alerts('Account Created Successfully<br>Now you can login','login','success zoomIn')
@@ -347,7 +346,7 @@ function loadData() {
 loadData();
 window.onload = (event) => {
     if (sessionStorage.getItem("uid") !== '') {
-        window.location.href = '/chat.html';
+        // window.location.href = '/chat.html';
     }
 };
 

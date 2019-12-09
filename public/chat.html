@@ -62,7 +62,7 @@
                         <h2>Friends Sugestion</h2>
                     </section>
                             <div class="search-section search-sugest">
-                                <input type="search" placeholder="Search ...">
+                                <input type="search" placeholder="Search ..." id="search-sugest-friends" onkeyup="searchSugestFriend(this);">
                             </div>
                 <section id="friendListInvite"></section>
                 <section>
@@ -251,6 +251,8 @@
     <br>
     <br>
     <!-- <br> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="data/data.js"></script>
     <script src="js/index.js"></script>
 </body>
