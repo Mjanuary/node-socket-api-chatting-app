@@ -16,33 +16,14 @@
 <body  style="overflow-x: hidden;">
 
 
-<div class="notification-popup blur">
-    <!-- <section class="nofitication-item fadeInDownBig animated">
-        <button class="close">x</button>
-        <b>Janvier muhaweni...</b>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
-    </section>
-
-
-    <section class="nofitication-item fadeInDownBig animated">
-            <button class="close">x</button>
-            <b>Janvier muhaweni...</b>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
-        </section>
-    
-        
-        <section class="nofitication-item fadeInDownBig animated">
-            <button class="close">x</button>
-            <b>Janvier muhaweni...</b>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, alias.</p>
-        </section>
-             -->
+<div class="notification-popup blur" id="notificationPopUpBar">
+      
 </div>
 
     <div class="containner zoomIn animated" id="mainContentsContainner" >
         <div id="appBar" class="hide_responsive slideInUp animated">
             <section>
-                <button onclick="return SwitchPage('chat',);" class="chat-app-button" style="background-image: url('images/bar-chat.png');" title="Chat">Chat</button>
+                <button onclick="return SwitchPage('chat');" class="chat-app-button" style="background-image: url('images/bar-chat.png');" title="Chat">Chat</button>
                 <button onclick="return SwitchPage('post');" class="post-app-button" style="background-image: url('images/chat-post.png');" title="Posts">Post</button>
                 <button onclick="return SwitchPage('closse');" class="close-app-button" style="background-image: url('images/bar-range.png');" title="Close Friends">Close</button>
                 <button onclick="return profileShow('me');" class="profile-app-button" style="background-image: url('images/bar-profile.png');" title="Profile">Profile</button>
@@ -58,7 +39,7 @@
 
                 <div id="inviteFriendsContainner" class="zoomIn animated">
                     <section class="header-nav">
-                        <section class="back-button" onclick="return SwitchPage('chat');"></section>
+                        <section class="back-button" onclick="return SwitchPage('chat'), refresh()"></section>
                         <h2>Friends Sugestion</h2>
                     </section>
                             <div class="search-section search-sugest">
@@ -66,11 +47,11 @@
                             </div>
                 <section id="friendListInvite"></section>
                 <section>
-                <button id="friendsContinueButton" class="btn" style="margin: auto;
+                <!-- <button id="friendsContinueButton" class="btn" style="margin: auto;
                 width: 76%;
                 margin-top: 22px;
                 margin-bottom: 18px;
-                background: green;">Accept All & Continue</button>
+                background: green;">Accept All & Continue</button> -->
                 </section>
             </div>
         </section>
@@ -98,24 +79,27 @@
           
       
                 </div>
-
-
-
                 <!-- CHATT PROVATE MESSAGE (CHATTNG MESSAGE) -->
                 <div id="chattingContainnerConteinner" class="hide_main_resp flipInY faster animated">
                     <section class="header-nav header-nav-chats-users-body">
                         <section class="back-button" onclick="return Route('chatDetails-back');"></section>
                         <section class="chatting-top-header"> 
-                            <img class="profile-image-chatting" src="images/profile/images (10).jpg" alt=""> 
-                            <h2 id="bar-name-chatting-h2" style="display: inline-block;">Janvier <section> <b>Active</b> <label>Typing...</label></section></h2>
+                            <img class="profile-image-chatting" src="#" alt=""> 
+                            <h2 id="bar-name-chatting-h2" style="display: inline-block;"> <section> <b> &nbsp; <br></b> <label> &nbsp; <br><br> </label></section></h2>
                         </section>
                     </section>
                     <div id="chattingContainnerMessages" class="scollable push-top-search">
-                        <div>Loading...</div>
+                        <div>
+                            <div class="chatting-welcome-section">
+                                <h1 style="font-size: 145px; margin: 0; margin-top: 9vh; text-align: center;">😍</h1>
+                                <h2 style="text-align: center;">Welcome Back</h2 >
+                            
+                            </div>
+                        </div>
                     </div>
 
                     <!-- chatting form -->
-                    <section id="messageInputContainner" class="slideInUp animated">
+                    <section id="messageInputContainner" class="slideInUp animated" style="display:none;">
                         <div class="conts-containner">
                             <input  id="messageInputText" type="text" name="" id=""> 
                             <button id="addImage">
@@ -247,13 +231,41 @@
 
     </div>
 
+
+    <audio id="notification-sound">
+        <source src="sound/chat.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="message-sound">
+        <source src="sound/active-chat.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <style>
+   #loadingGIF {
+    position: fixed;
+    bottom: 12px;
+    right: 0px;
+    left: 0px;
+    margin: auto;
+    background: #5f0101;
+    width: fit-content;
+    border-radius: 30px;
+    padding: 12px 2px 0px 11px;
+   } 
+    </style>
     <br>
     <br>
     <br>
     <!-- <br> -->
+    <script>
+        window.page = 'chat';
+    </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="data/data.js"></script>
     <script src="js/index.js"></script>
+    <!-- <script src="/js/chat.js"></script> -->
+
 </body>
 </html>

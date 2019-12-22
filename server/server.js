@@ -19,70 +19,81 @@ http.listen(port, function(){
   console.log(`listening on *:${port}`);
 });
 
- 
-// io --> for all connected users
-// socket --> for a singular user
-// socket.broadcast.emit --> this will send the notification to all the users exept the sender
+
 io.on('connection', (socket) => {
     console.log("A new user just connected");
+    // console.log('connected users ', users.getUserList());
+
+
     // registration
     socket.on('join', (params, callback) => {
-    
-    // if (!isRealString(params.name) || !isRealString(params.room)) {
-    //     return callback('Name and Room are required');
-    // }
 
-    // join the room
-    socket.join(params.room);
-    
-    // users.removeUser(socket.id);
-    // users.addUser(socket.id, params.name, params.room);
+        users.removeUser(params.uid, (data) => {
+            // console.log('remove user: ', data);
+        }, 'id');
 
-    // tell the ui the new user who joined the group
-    // io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    // send the message  to the initial
-    socket.emit('newMessage', generateMessage('Admin', `welcome to ${params.room}!`));
+        users.addUser(params.uid, socket.id, params.groups, (id, user) => {
+            socket.broadcast.to(id).emit('aConnectedUser',user);
+            // console.log(user, ' joined => ', id);
+            socket.join(id);
+        });
 
-    // send the message to the rest of the user
-    socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', 'New user joined!'));
+        io.to(params.groups).emit('updateUserList', users.activeUsers(params.groups));
+
+        // send the message  to the initial
+        socket.emit('activeUsers', users.activeUsers(params.uid));
+        // socket.emit('newMessage', 'admin says you are welcome');
+        // console.log('active: ', users.activeUsers(socket.id));
+        
+        // send the message to the rest of the user
+        for (const key in users.userGroups(params.uid)) {
+            let group = users.userGroups(params.uid)[key];
+            socket.broadcast.to(group).emit('newMessage','new user joined');
+        }
 
 
-
-    socket.on('createMessage', (message, callback) => {
-        // socket.broadcast.to(params.room).emit('newMessage', generateMessage(params.name ,message.text));
-        io.to(params.room).emit('newMessage', generateMessage(params.name ,message.text));
-
-        callback('this is ...');        
-    });
-
+        socket.on('createMessage', (message, callback) => {
+            // socket.broadcast.to(params.room).emit('newMessage', generateMessage(params.name ,message.text));
+            // io.to(message.group).emit('newMessage', message);
+            socket.broadcast.to(message.group).emit('newMessage', message);
+            
+            callback('message received.');        
+        });
 
     callback('');
-
     });
 
-
-    // socket.on('createMessage', (message, callback) => {
-    //     console.log("create message: ", message);
-
-    //     // this will be sent to all the users
-    //     // io.emit('newMessage', generateMessage(message.from,message.text))
-
-    //     // send the message to the rest of the user
-    //     socket.emit('newMessage', generateMessage(message.from,message.text));
-    //     // socket.broadcast.emit('newMessage', generateMessage(message.from,message.text));
-
-    //     callback('this is the server');        
-    // });
 
     // user is disconnected
     socket.on('disconnect', () => {
-        // console.log('user was disonnected to the server');
-        let user = users.removeUser(socket.id);
+   
+        users.removeUser(socket.id, (data) => {
+            let user = {
+                ...users.getUser(socket.id, 'key'),
+                ...data
+            };
+            socket.broadcast.to(data.groupId).emit('adDisconnectedUser',user);
+            
+            // users.groupId = data.groupId;
+            // console.log('USERS IS: ',user);
+            
 
-        if (user) {
-            io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-            io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left ${user.room} chat room`));
-        }
+            // console.log(users.users);
+            
+            // tell the users that the user is offline
+            // function to remove the chats
+            // console.log('x: ',data);
+            // console.log('DISCONNECTED: ', data);
+            
+        });
+        
+
+        // let user = users.removeUser(socket.id);
+
+        // if (user) {
+        //     io.to(user.room).emit('updateUserList', users.getUserList(user.room));
+        //     io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left ${user.room} chat room`));
+        // }
     });
 
     socket.on('updateUsersList', function(users) {
@@ -90,7 +101,15 @@ io.on('connection', (socket) => {
         
     });
 
-    //
+
+    socket.on('typing', function(typing) {
+        // console.log(typing);
+        socket.broadcast.to(typing.groupId).emit('trpingBack', typing);
+        
+    });
+
+
+    // 
     socket.on('createLocationMessage', (data, callback) => {
         console.log('The location: ', data);
         callback(data);
@@ -106,5 +125,5 @@ io.on('connection', (socket) => {
 // alice@gmail.com
 // emoji icons
 // https://emojipedia.org/white-up-pointing-index/
-
+//🐑
 // npm run devStart

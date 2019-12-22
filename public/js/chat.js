@@ -26,6 +26,13 @@ socket.on('connect', function () {
     // })
 });
 
+
+// 
+
+
+
+
+
 // new message
 socket.on('newMessage', function (message) {
     // console.log('newMessage: ', message);

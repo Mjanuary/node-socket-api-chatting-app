@@ -518,37 +518,63 @@ window.data = {
 
 
 
-    window.postSlide = {
-        slide: {
-            curent: 0,
-            max: 0
-        },
-        userPost: {
-            curent: 0,
-            max: 0
-        },
-        active: false
+window.postSlide = {
+    slide: {
+        curent: 0,
+        max: 0
+    },
+    userPost: {
+        curent: 0,
+        max: 0
+    },
+    active: false
 
-    };
+};
 
 
 var dateTime = new Date();
 // ALL THE USERS FROM THE DATABASE
+
 window.DB = '';
 // check if the users are loaded
 window.dataLoaded = false;
 // active user
 window.USERS = {};
 window.USER = {};
-window.UID = '';
+window.UID = sessionStorage.getItem("uid");
 
+window.FRIENDS = {};
+window.FRIENDS_ARRAY = [];
+window.FRIENDS_GROUPS_ARRAY = [];
+window.SELECTED = [];
+window.CHATS = {};
+window.ACTIVE_USERS = [];
+
+window.STYLE_CHATS = {};
+window.SELECTED_UID = null;
+window.SELECTED_GROUP = null;
 // load the datas
+window.socket = null;
+
+// chats definition
+window.chatActive_Sound = null;
+window.chat_Sound = null;
+
 function loadMainData(callback) {
     axios.get('https://african-chat-app.firebaseio.com/users.json')
     .then((response) => {
         // handle success
         window.USERS = response.data;
-        callback(response.data);
+        organizeData();
+        callback('users data: ',response.data);
+        
+        // START OC CONNECTION WITH THE SOCKET
+
+
+
+
+
+
 
     })
     .catch(function (error) {
@@ -664,45 +690,136 @@ function makeid(length) {
 // }
 
 const inviteFriendDB = id => {
-    let chatKey = makeid(10);
+    // let chatKey = makeid(10);
+    let messagesOBJ = {
+        createdBy: window.UID,
+        members: [window.UID, id]
+    };
 
-    let userOBJ = {
-        friendKey: id,
-        groupId: chatKey,
-        date: dateTime
-    }
+    loading(true);
+    axios.post('https://african-chat-app.firebaseio.com/chats.json', messagesOBJ)
+    .then((response) => {
+        loading(false);
 
-    // send group to the users
-    axios.post(`https://african-chat-app.firebaseio.com/users/${id}/friends.json`,  userOBJ);
-    axios.post(`https://african-chat-app.firebaseio.com/users/${window.UID}/friends.json`,  userOBJ);
+        let userOBJ_me = {
+            friendKey: id,
+            groupId: response.data.name,
+            date: dateTime,
+            accept: false
+        }
 
-    // add the friend to the objsct
-    loadMainData((data) => {
-        console.log('data updated');
-        console.log(data);
+        let userOBJ_friend = {
+            friendKey: window.UID,
+            groupId: response.data.name,
+            date: dateTime,
+            accept: false
+        }
+        
+        // send group to the users
+        axios.post(`https://african-chat-app.firebaseio.com/users/${id}/friends.json`,  userOBJ_friend);
+        axios.post(`https://african-chat-app.firebaseio.com/users/${window.UID}/friends.json`,  userOBJ_me);
+        
+        // add the friend to the objsct
+        loadMainData((data) => {
+            findId(sessionStorage.getItem("uid"), user => {
+                window.USER = user;
+                generateFriendsList(user);
+                chattList();
+                organizeData(); 
+            }, data);
+            
+            
+            organizeData(); 
+            generateFriendsList(user);
+            chattList();
+        })  
+        if (this.USER.friends) {
+            console.log('FOUND1');
+        } else {
+            console.log('NOT FOUND1');
+        }
+        console.log('USER: ', this.USER);        
+
+    });
+}
 
 
+// console.log(window.UID);
+
+// this will refresh the data
+const refresh = () => {
+    loading(true);
+    axios.get('https://african-chat-app.firebaseio.com/users.json')
+    .then((response) => {
+        // handle success
+        window.USERS = response.data;
 
         findId(sessionStorage.getItem("uid"), user => {
+            
             window.USER = user;
             generateFriendsList(user);
             chattList();
-            // console.log(window.USERS);
+            organizeData();
+            // console.log('UPDATES: ', response.data);
+            
+        });
 
-            // console.log('organized friends: ', window.USER.oFriends);
-            // console.log('session: ', sessionStorage.getItem("uid"));
-        }, data);
+        
+        // console.log
+        loading(false);
+    })
+    .catch(function (error) {
+        loading(false);
+    })
+    .finally(function () {
+
+    });     
+}
 
 
 
+const organizeData = () => {
+    // console.log('-----------------------------------');
+    findId(window.UID, data => {
+        // subUser.details = data;
+        // window.FRIENDS_ARRAY =  Object.keys(window.USERS[window.UID].friends);    
+        if (window.USERS[window.UID].hasOwnProperty('friends')) {      
+            // get the users list
+            let usersId = Object.keys(window.USERS[window.UID].friends);
+            for (const key in usersId) {
+                window.FRIENDS_ARRAY.push(window.USERS[window.UID].friends[usersId[key]].friendKey);
+                window.FRIENDS_GROUPS_ARRAY.push(window.USERS[window.UID].friends[usersId[key]].groupId);
+            }
+        }
+    });    
+}
 
-        generateFriendsList(user);
-        chattList();
-    })  
-    if (this.USER.friends) {
-        console.log('FOUND1');
-    } else {
-        console.log('NOT FOUND1');
+
+const styleMessages = (groupId, messages) => {
+    // window.STYLE_CHATS
+    const messagesBody = [];
+    // console.log('Message from: ', groupId);
+    // console.log('Messages: ', messages);
+    // console.log('------------------------------------------');
+    
+    for (let [key, value] of Object.entries(messages)) {
+        let body = value;
+        body.key = key;
+        messagesBody.push(body);
     }
-    console.log('USER: ', this.USER);
+    window.STYLE_CHATS[groupId] = messagesBody;
+}
+
+const storeMessage = message => {
+    if (window.SELECTED_GROUP !== null || window.SELECTED_GROUP !== '') {
+        if (window.SELECTED_GROUP in window.STYLE_CHATS) {
+            window.STYLE_CHATS[window.SELECTED_GROUP].push(message);
+        } else {
+            window.STYLE_CHATS[window.SELECTED_GROUP] = [];
+            window.STYLE_CHATS[window.SELECTED_GROUP].push(message);
+        }
+        return true;
+    } else {
+        return false;
+    }
 }
