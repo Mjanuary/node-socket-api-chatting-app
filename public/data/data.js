@@ -823,3 +823,18 @@ const storeMessage = message => {
         return false;
     }
 }
+
+
+const storeMessageCashe = (message, groupId) => {
+    if (groupId !== null || groupId !== '') {
+        if (groupId in window.STYLE_CHATS) {
+            window.STYLE_CHATS[groupId].push(message);
+        } else {
+            window.STYLE_CHATS[groupId] = [];
+            window.STYLE_CHATS[groupId].push(message);
+        }
+        return true;
+    } else {
+        return false;
+    }
+}

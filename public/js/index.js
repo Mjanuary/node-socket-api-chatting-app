@@ -984,7 +984,7 @@ const startSocketsOperations = () => {
         // create the sound
         if (message.group === window.SELECTED_GROUP && message.by !== window.UID) {
             // pust the message the 
-            console.log('the dom is selected');
+            // console.log('the dom is selected');
             
             writeMessageDOM(message);
             Sound('m');
@@ -1001,8 +1001,29 @@ const startSocketsOperations = () => {
             }
             Sound();
             // put the element to the ui dom
-            console.log('the dom is not selected');   
+            console.log('the dom is not selected');  
+
+            // store the message into browser into the chache
+            // redefine the globalstore 
+            
+            
+            
+            
         }
+        // let storeMessage = {
+        //     by: "-Lv_fZEcOjPC_SWPIxRA",
+        //     date: "2019-12-20T11:21:59.814Z",
+        //     msg: "HGHGH",
+        //     key: "-LwY2fh0yFxPhMECVbpM"
+        // }
+
+
+        // by: "-Lv_fn3Mli8qkm6iyuIu"
+        // msg: "hello"
+        // date: "2019-12-23T05:04:38.946Z"
+        // group: "-LwVTNzCSpkvzUWQ48m4"
+        storeMessageCashe(message, message.group)
+        console.log('MESSAGES: ', message);
     });
     
     
