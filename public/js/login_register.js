@@ -252,7 +252,18 @@ e('#registerButton').addEventListener('click', () => {
                         .then(function (response) {
                             e('#login-form-containner').style.display = 'block';
                             e('#register-form-containner').style.display = 'none';
-                            alerts('Account Created Successfully<br>Now you can login','login','success zoomIn')
+                            alerts('Account Created Successfully<br>Now you can login','login','success zoomIn');
+
+
+                            setTimeout(() => {
+                                e(".loading-section-div").style.display = 'block';
+                                e(".body-body").classList.add('body-success');
+                            }, 1500);
+                            
+                            setTimeout(() => {
+                                window.location.href = '/index.html';
+                            }, 2000);
+                            
                         })
                         .catch(function (error) {
                             console.log(error);
