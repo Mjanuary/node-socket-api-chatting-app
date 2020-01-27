@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,26 +15,26 @@
 </head>
 
 <style>
-.loading-section-div {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    top: 0px;
-    margin: auto;
-    width: 50%;
-    height: 87px;
-    background: #FFC107;
-    font-size: 25px;
-    z-index: 11111;
-    text-align: center;
-    padding: 13px;
-    font-weight: bold;
-    border: 5px solid #3b0303;
-    border-radius: 300px;
-    height: fit-content;
-    display: none;
-}
+    .loading-section-div {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        top: 0px;
+        margin: auto;
+        width: 50%;
+        height: 87px;
+        background: #FFC107;
+        font-size: 25px;
+        z-index: 11111;
+        text-align: center;
+        padding: 13px;
+        font-weight: bold;
+        border: 5px solid #3b0303;
+        border-radius: 300px;
+        height: fit-content;
+        display: none;
+    }
 </style>
 
 <div class="loading-section-div">
@@ -58,77 +59,77 @@
             </section>
         </section>
         <div class="register-login-forms">
-            
-            <div class="form-contents flipInY faster animated" id="register-form-containner" style="display: none;" >
-                    <h1>create Account</h1>
 
-                    <div class="from-group alert-display" id="register-alerts"></div>
+            <div class="form-contents flipInY faster animated" id="register-form-containner" style="display: none;">
+                <h1>create Account</h1>
 
-                    <div class="from-group">
-                        <label>Email</label> 
-                        <input type="text" id="registerEmail" class="input">
-                        <b id="registerEmail_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Password</label> 
-                        <input type="password" id="regidterPassword" class="input">
-                        <b id="regidterPassword_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Re-Password</label> 
-                        <input type="password" id="regidterRePassword" class="input">
-                        <b id="regidterRePassword_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Phone</label> 
-                        <input type="number" id="regidterPhone" max="13" class="input">
-                        <b id="regidterPhone_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Username</label> 
-                        <input type="text" id="regidterUsername" class="input">
-                        <b id="regidterUsername_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Full Names</label> 
-                        <input type="text" id="regidterNames" class="input">
-                        <b id="regidterNames_Label" style="color: red;"></b>
-                    </div>
-                    <div class="from-group">
-                        <label>Select Country</label> 
-                        <select name="" id="regidterCountry" class="input">
-                            <option value="">Select</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="Congo">Congo</option>
-                            <option value="Tanzania">Tanzania</option>
-                            <option value="Burundi">Burundi</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Others">Others</option>
-                        </select>
-                        <b id="regidterCountry_Label" style="color: red;"></b>
-                    </div>
-                    <button class="btn" id="registerButton">Register</button>
-                    <button class="login-btn" id="switch-login">Already have an account</button>
+                <div class="from-group alert-display" id="register-alerts"></div>
+
+                <div class="from-group">
+                    <label>Email</label>
+                    <input type="text" id="registerEmail" class="input">
+                    <b id="registerEmail_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Password</label>
+                    <input type="password" id="regidterPassword" class="input">
+                    <b id="regidterPassword_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Re-Password</label>
+                    <input type="password" id="regidterRePassword" class="input">
+                    <b id="regidterRePassword_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Phone</label>
+                    <input type="number" id="regidterPhone" max="13" class="input">
+                    <b id="regidterPhone_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Username</label>
+                    <input type="text" id="regidterUsername" class="input">
+                    <b id="regidterUsername_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Full Names</label>
+                    <input type="text" id="regidterNames" class="input">
+                    <b id="regidterNames_Label" style="color: red;"></b>
+                </div>
+                <div class="from-group">
+                    <label>Select Country</label>
+                    <select name="" id="regidterCountry" class="input">
+                        <option value="">Select</option>
+                        <option value="Rwanda">Rwanda</option>
+                        <option value="Congo">Congo</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="Burundi">Burundi</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <b id="regidterCountry_Label" style="color: red;"></b>
+                </div>
+                <button class="btn" id="registerButton">Register</button>
+                <button class="login-btn" id="switch-login">Already have an account</button>
+            </div>
+
+
+            <div class="form-contents  flipInY faster animated login-section" id="login-form-containner">
+                <h1>Login</h1>
+
+                <div class="from-group alert-display" id="login-alerts"></div>
+
+                <div class="from-group">
+                    <label>email</label>
+                    <input type="email" id="loginEmail" class="input">
+                </div>
+                <div class="from-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="input">
                 </div>
 
-
-                <div class="form-contents  flipInY faster animated login-section" id="login-form-containner">
-                        <h1>Login</h1>
-                        
-                        <div class="from-group alert-display" id="login-alerts"></div>
-
-                        <div class="from-group">
-                            <label>email</label> 
-                            <input type="email" id="loginEmail" class="input">
-                        </div>
-                        <div class="from-group">
-                            <label>Password</label> 
-                            <input type="password" id="loginPassword" class="input">
-                        </div>
-               
-                        <button class="btn" id="loginButton">Login</button>
-                        <button class="login-btn" id="switch-register">Dont have an account</button>
-                    </div>
+                <button class="btn" id="loginButton">Login</button>
+                <button class="login-btn" id="switch-register">Dont have an account</button>
+            </div>
 
 
 
@@ -136,7 +137,7 @@
 
         </div>
 
-        
+
     </div>
     <!-- <br> -->
     <script>
@@ -145,7 +146,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="data/data.js"></script>
-    <!-- <script src="js/index.js"></script> -->
     <script src="js/login_register.js"></script>
 </body>
+
 </html>
